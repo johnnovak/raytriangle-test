@@ -11,7 +11,6 @@ class PerfTest {
     Vec3 v0v1 = v1.sub(v0);
     Vec3 v0v2 = v2.sub(v0);
     Vec3 pvec = r.dir.cross(v0v2);
-
     float det = v0v1.dot(pvec);
 
     if (det < 0.000001)
