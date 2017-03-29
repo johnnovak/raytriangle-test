@@ -1,0 +1,396 @@
+Overview
+========
+
+100 rays
+1 million triangles
+
+All tests were performed on a MacBook Pro (Mid 2014), 2.2 GHz Intel Core i7,
+16 GB RAM running OS X El Capitan 10.11.6.
+
+Nim version:
+  Nim Compiler Version 0.16.1 (2017-03-27) [MacOSX: amd64]
+
+Clang version:
+
+  Apple LLVM version 7.3.0 (clang-703.0.31)
+  Target: x86_64-apple-darwin15.3.0
+  Thread model: posix
+  InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+
+Java version:
+
+  java version "1.8.0_112"
+  Java(TM) SE Runtime Environment (build 1.8.0_112-b16)
+  Java HotSpot(TM) 64-Bit Server VM (build 25.112-b16, mixed mode)
+
+Node version:
+  v4.4.7
+
+CPython 2 version:
+  2.7.13
+
+CPython 3 version:
+  3.5.2
+
+PyPy version:
+  Python 2.7.13 (fa3249d55d15b9829e1be69cdf45b5a44cec902d, Mar 27 2017, 13:42:09)
+  [PyPy 5.7.0 with GCC 4.2.1 Compatible Apple LLVM 7.3.0 (clang-703.0.31)]
+
+
+Commands used to run the tests:
+
+  C++:  gcc -std=c++11 -lm -O3 -ffast-math -o perftest perftest.cpp && ./perftest
+  Nim:  nim c -r -d:release perftestN.nim
+  Java: javac Ray.java Vec3.java PerfTest.java && java -cp . PerfTest
+  Node: node perftest.js
+
+
+Max performance
+===============
+
+Just return v0.x
+
+
+C++ ?
+---
+
+Total intersection tests:  100,000,000
+  Hits:                     50,058,000 (50.06%)
+  Misses:                   49,942,000 (49.94%)
+
+Total time:                       0.12 seconds
+Millions of tests per second:   847.46
+
+
+Nim
+---
+
+Total intersection tests:  100,000,000
+  Hits:                     50,054,700 (50.05%)
+  Misses:                   49,945,300 (49.95%)
+
+Total time:                       0.52 seconds
+Millions of tests per second:   193.16
+
+
+Java
+----
+
+Total intersection tests:  100,000,000
+  Hits:                     49,911,600 (49.91%)
+  Misses:                   50,088,400 (50.09%)
+
+  Total time:                       0.83 seconds
+  Millions of tests per second:   120.48
+
+
+JavaScript
+----------
+
+Total intersection tests:  100000000
+  Hits:                    50037200 (50.04%)
+  Misses:                  49962800 (49.96%)
+
+  Total time:                     2.04 seconds
+  Millions of tests per second:   48.9
+
+
+CPython2
+--------
+
+Total intersection tests:     10000000
+  Hits:                        5000600 (50.01%)
+  Misses:                      4999400 (49.99%)
+
+  Total time:                       6.51 seconds
+  Millions of tests per second:     1.54
+
+
+CPython3
+--------
+
+Millions of tests per second:     1.33
+
+
+PyPy
+----
+
+Total intersection tests:     10000000
+  Hits:                        5022300 (50.22%)
+  Misses:                      4977700 (49.78%)
+
+  Total time:                       0.21 seconds
+  Millions of tests per second:    47.55
+
+
+Results
+=======
+
+perftest.cpp
+------------
+
+Total intersection tests:  100,000,000
+  Hits:                      4,994,583 ( 4.99%)
+  Misses:                   95,005,417 (95.01%)
+
+Total time:                       1.93 seconds
+Millions of tests per second:    51.87
+
+
+perftest1.nim
+-------------
+[GLM]
+
+Total intersection tests:  100,000,000
+  Hits:                      4,703,478 ( 4.70%)
+  Misses:                   95,296,522 (95.30%)
+
+Total time:                      19.86 seconds
+Millions of tests per second:     5.04
+
+
+perftest2.nim
+-------------
+[custom vector implementation (object references)]
+
+Total intersection tests:  100,000,000
+  Hits:                      5,718,606 ( 5.72%)
+  Misses:                   94,281,394 (94.28%)
+
+Total time:                      11.41 seconds
+Millions of tests per second:     8.76
+
+
+perftest3.nim
+-------------
+[custom vector implementation (objects)]
+
+Total intersection tests:  100,000,000
+  Hits:                      5,206,370 ( 5.21%)
+  Misses:                   94,793,630 (94.79%)
+
+Total time:                       1.96 seconds
+Millions of tests per second:    50.93
+
+
+perftest4.nim
+-------------
+[vector module]
+
+Total intersection tests:  100,000,000
+  Hits:                      5,237,698 ( 5.24%)
+  Misses:                   94,762,302 (94.76%)
+
+Total time:                       2.89 seconds
+Millions of tests per second:    34.55
+
+
+perftest5.nim
+-------------
+[vector module with inlines]
+
+Total intersection tests:  100,000,000
+  Hits:                      4,640,926 ( 4.64%)
+  Misses:                   95,359,074 (95.36%)
+
+Total time:                       1.96 seconds
+Millions of tests per second:    51.12
+
+
+Java
+----
+
+100 rays, num triangles varies
+
+Total intersection tests:      100,000
+  Hits:                          4,472 ( 4.47%)
+  Misses:                       95,528 (95.53%)
+
+  Total time:                       0.01 seconds
+  Millions of tests per second:    11.11
+
+
+Total intersection tests:    1,000,000
+  Hits:                         49,531 ( 4.95%)
+  Misses:                      950,469 (95.05%)
+
+  Total time:                       0.04 seconds
+  Millions of tests per second:    25.64
+
+
+Total intersection tests:   10,000,000
+  Hits:                        389,514 ( 3.90%)
+  Misses:                    9,610,486 (96.10%)
+
+  Total time:                       0.27 seconds
+  Millions of tests per second:    37.45
+
+
+Total intersection tests:  100,000,000
+  Hits:                      4,238,899 ( 4.24%)
+  Misses:                   95,761,101 (95.76%)
+
+  Total time:                       3.20 seconds
+  Millions of tests per second:    31.27
+
+
+BUT not slowdown with Nim (using perftest5.nim):
+
+Total intersection tests:     100,000
+  Hits:                          4,546 ( 4.55%)
+  Misses:                       95,454 (95.45%)
+
+Total time:                       0.00 seconds
+Millions of tests per second:    50.56
+
+(Below 100k tests even Nim slows down, probably some overhead starts taking
+over.)
+
+
+JavaScript
+----------
+
+100 rays, num triangles varies
+
+Total intersection tests:  100000
+  Hits:                    3816 (3.82%)
+  Misses:                  96184 (96.18%)
+
+  Total time:                     0.01 seconds
+  Millions of tests per second:   9.02
+
+
+Total intersection tests:  1000000
+  Hits:                    41090 (4.11%)
+  Misses:                  958910 (95.89%)
+
+  Total time:                     0.05 seconds
+  Millions of tests per second:   20.49
+
+
+Total intersection tests:  10000000
+  Hits:                    402791 (4.03%)
+  Misses:                  9597209 (95.97%)
+
+  Total time:                     0.34 seconds
+  Millions of tests per second:   29.66
+
+
+Total intersection tests:  100000000
+  Hits:                    4399082 (4.4%)
+  Misses:                  95600918 (95.6%)
+
+  Total time:                     3.43 seconds
+  Millions of tests per second:   29.15
+
+
+Python
+======
+
+Total intersection tests:     10000000
+  Hits:                         419725 ( 4.20%)
+  Misses:                      9580275 (95.80%)
+
+  Total time:                      47.85 seconds
+  Millions of tests per second:     0.21
+
+
+PyPy
+====
+
+Total intersection tests:       100000
+  Hits:                           4792 ( 4.79%)
+  Misses:                        95208 (95.21%)
+
+  Total time:                       0.10 seconds
+  Millions of tests per second:     1.03
+
+
+Total intersection tests:      1000000
+  Hits:                          47737 ( 4.77%)
+  Misses:                       952263 (95.23%)
+
+  Total time:                       0.26 seconds
+  Millions of tests per second:     3.82
+
+
+Total intersection tests:     10000000
+  Hits:                         432154 ( 4.32%)
+  Misses:                      9567846 (95.68%)
+
+  Total time:                       1.09 seconds
+  Millions of tests per second:     9.15
+
+
+Total intersection tests:    100000000
+  Hits:                        4645003 ( 4.65%)
+  Misses:                     95354997 (95.35%)
+
+  Total time:                       9.51 seconds
+  Millions of tests per second:    10.51
+
+
+Summary
+=======
+
+Test       M test/s    Rel.perf.
+--------------------------------
+C++            51.9      1.00x
+Nim            51.1      0.98x
+Java           31.3      0.60x
+JavaScript     29.2      0.56x
+PyPy           10.7      0.21x
+CPython2       0.21     0.004x
+CPython3       0.15     0.003x
+
+
+Real life example (rendering an image):
+
+    3 hours  (C++, Nim)
+    5 hours  (Java, JavaScript)
+   15 hours  (PyPy)
+   30 days   (CPython2)
+   40 days   (CPython3)
+
+Further optimisations:
+
+   45 mins   (C++, Nim w/ multi-threading & SIMD)               1.00x
+  2.5 hours  (Java w/ multi-threading)                          0.30x
+    5 hours  (JavaScript, no further optimisations possible)    0.15x
+
+
+Test                            M test/s    Rel.perf.
+-----------------------------------------------------
+Nim - nim-glm                        5.0      0.09x
+Nim - custom (ref objects)           8.8      0.17x
+Nim - custom (objects)              50.9      0.98x
+Nim - vector module                 34.6      0.67x
+Nim - vector module w/ inlines      51.1      0.98x
+
+
+Java
+Tests   M test/s   Rel.perf.
+----------------------------
+100K      11.1       0.21x
+  1M      25.7       0.49x
+ 10M      37.4       0.72x
+100M      31.3       0.60x
+
+
+JavaScript
+Tests   M test/s   Rel.perf.
+----------------------------
+100K       9.0       0.17x
+  1M      20.5       0.39x
+ 10M      29.7       0.57x
+100M      29.2       0.56x
+
+
+PyPy
+Tests   M test/s   Rel.perf.
+----------------------------
+100K      1.0        0.02x
+  1M      3.8        0.07x
+ 10M      9.2        0.18x
+100M     10.5        0.20x
+
