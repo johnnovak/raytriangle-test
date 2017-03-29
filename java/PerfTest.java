@@ -18,16 +18,13 @@ class PerfTest {
       return NEGATIVE_INFINITY;
 
     float invDet = (float) (1.0 / det);
-
     Vec3 tvec = r.orig.sub(v0);
-
     float u = tvec.dot(pvec) * invDet;
 
     if (u < 0 || u > 1)
       return NEGATIVE_INFINITY;
 
     Vec3 qvec = tvec.cross(v0v1);
-
     float v = r.dir.dot(qvec) * invDet;
 
     if (v < 0 || u + v > 1)
