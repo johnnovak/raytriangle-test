@@ -45,84 +45,6 @@ Commands used to run the tests:
   Node: node perftest.js
 
 
-Max performance
-===============
-
-Just return v0.x
-
-
-C++ ?
----
-
-Total intersection tests:  100,000,000
-  Hits:                     50,058,000 (50.06%)
-  Misses:                   49,942,000 (49.94%)
-
-Total time:                       0.12 seconds
-Millions of tests per second:   847.46
-
-
-Nim
----
-
-Total intersection tests:  100,000,000
-  Hits:                     50,054,700 (50.05%)
-  Misses:                   49,945,300 (49.95%)
-
-Total time:                       0.52 seconds
-Millions of tests per second:   193.16
-
-
-Java
-----
-
-Total intersection tests:  100,000,000
-  Hits:                     49,911,600 (49.91%)
-  Misses:                   50,088,400 (50.09%)
-
-  Total time:                       0.83 seconds
-  Millions of tests per second:   120.48
-
-
-JavaScript
-----------
-
-Total intersection tests:  100000000
-  Hits:                    50037200 (50.04%)
-  Misses:                  49962800 (49.96%)
-
-  Total time:                     2.04 seconds
-  Millions of tests per second:   48.9
-
-
-CPython2
---------
-
-Total intersection tests:     10000000
-  Hits:                        5000600 (50.01%)
-  Misses:                      4999400 (49.99%)
-
-  Total time:                       6.51 seconds
-  Millions of tests per second:     1.54
-
-
-CPython3
---------
-
-Millions of tests per second:     1.33
-
-
-PyPy
-----
-
-Total intersection tests:     10000000
-  Hits:                        5022300 (50.22%)
-  Misses:                      4977700 (49.78%)
-
-  Total time:                       0.21 seconds
-  Millions of tests per second:    47.55
-
-
 Results
 =======
 
@@ -284,15 +206,22 @@ Total intersection tests:  100000000
   Millions of tests per second:   29.15
 
 
-Python
-======
+CPython2
+========
 
-Total intersection tests:     10000000
-  Hits:                         419725 ( 4.20%)
-  Misses:                      9580275 (95.80%)
+Total intersection tests:    100000000
+  Hits:                        4232693 ( 4.23%)
+  Misses:                     95767307 (95.77%)
 
-  Total time:                      47.85 seconds
-  Millions of tests per second:     0.21
+  Total time:                     508.68 seconds
+  Millions of tests per second:     0.20
+
+
+CPython3
+========
+
+  Total time:                     673.66 seconds
+  Millions of tests per second:     0.14
 
 
 PyPy
@@ -339,9 +268,9 @@ C++            51.9      1.00x
 Nim            51.1      0.98x
 Java           31.3      0.60x
 JavaScript     29.2      0.56x
-PyPy           10.7      0.21x
-CPython2       0.21     0.004x
-CPython3       0.15     0.003x
+PyPy           10.5      0.20x
+CPython2       0.20     0.004x
+CPython3       0.14     0.003x
 
 
 Real life example (rendering an image):

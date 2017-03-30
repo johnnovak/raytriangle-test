@@ -39,7 +39,29 @@ class Ray:
 
 
 def ray_triangle_intersect(r, v0, v1, v2):
-  return v0.x
+    v0v1 = v1.sub(v0)
+    v0v2 = v2.sub(v0)
+    pvec = r.direction.cross(v0v2)
+
+    det = v0v1.dot(pvec)
+
+    if det < 0.000001:
+        return float('-inf')
+
+    invDet = 1.0 / det
+    tvec = r.orig.sub(v0)
+    u = tvec.dot(pvec) * invDet
+
+    if u < 0 or u > 1:
+        return float('-inf')
+
+    qvec = tvec.cross(v0v1)
+    v = r.direction.dot(qvec) * invDet
+
+    if v < 0 or u + v > 1:
+        return float('-inf')
+
+    return v0v2.dot(qvec) * invDet
 
 
 def random_vertex():
@@ -71,7 +93,7 @@ def random_sphere():
 
 
 NUM_RAYS = 100
-NUM_TRIANGLES = 1000 * 100
+NUM_TRIANGLES = 1000 * 1000
 
 random.seed()
 
@@ -106,10 +128,12 @@ hit_perc  = float(num_hit) / num_tests * 100
 miss_perc = float(num_miss) / num_tests * 100
 mtests_per_second = float(num_tests) / t_total / 1000000
 
-print 'Total intersection tests:  %11d' % (num_tests)
-print '  Hits:\t\t\t   %11d (%5.2f%%)' % (num_hit, hit_perc)
-print '  Misses:\t\t   %11d (%5.2f%%)' % (num_miss, miss_perc)
-print
-print '  Total time:\t\t\t  %6.2f seconds' % (t_total)
-print '  Millions of tests per second:\t  %6.2f' % (mtests_per_second)
+#print 'Total intersection tests:  %11d' % (num_tests)
+#print '  Hits:\t\t\t   %11d (%5.2f%%)' % (num_hit, hit_perc)
+#print '  Misses:\t\t   %11d (%5.2f%%)' % (num_miss, miss_perc)
+#print
+#print '  Total time:\t\t\t  %6.2f seconds' % (t_total)
+#print '  Millions of tests per second:\t  %6.2f' % (mtests_per_second)
+print(mtests_per_second)
+print(t_total)
 
