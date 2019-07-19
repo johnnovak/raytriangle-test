@@ -13,9 +13,9 @@ const (
 )
 
 type Vec3 struct {
-	X float64
-	Y float64
-	Z float64
+	X float32
+	Y float32
+	Z float32
 }
 
 func (v1 Vec3) Sub(v2 Vec3) Vec3 {
@@ -26,7 +26,7 @@ func (v1 Vec3) Sub(v2 Vec3) Vec3 {
 	}
 }
 
-func (v1 Vec3) Dot(v2 Vec3) float64 {
+func (v1 Vec3) Dot(v2 Vec3) float32 {
 	return v1.X*v2.X + v1.Y*v2.Y + v1.Z*v2.Z
 }
 
@@ -38,8 +38,8 @@ func (v1 Vec3) Cross(v2 Vec3) Vec3 {
 	}
 }
 
-func (v1 Vec3) Length() float64 {
-	return math.Sqrt(v1.X*v1.X + v1.Y*v1.Y + v1.Z*v1.Z)
+func (v1 Vec3) Length() float32 {
+	return float32(math.Sqrt(float64(v1.X*v1.X + v1.Y*v1.Y + v1.Z*v1.Z)))
 }
 
 func (v1 Vec3) Normalize() Vec3 {
@@ -56,7 +56,7 @@ type Ray struct {
 	Direction Vec3
 }
 
-func RayTriangleIntersect(r Ray, v0, v1, v2 Vec3) float64 {
+func RayTriangleIntersect(r Ray, v0, v1, v2 Vec3) float32 {
 	v0v1 := v1.Sub(v0)
 	v0v2 := v2.Sub(v0)
 	pvec := r.Direction.Cross(v0v2)
@@ -64,7 +64,7 @@ func RayTriangleIntersect(r Ray, v0, v1, v2 Vec3) float64 {
 	det := v0v1.Dot(pvec)
 
 	if det < 0.000001 {
-		return float64(math.MinInt32)
+		return float32(math.MinInt32)
 	}
 
 	invDet := 1.0 / det
@@ -72,14 +72,14 @@ func RayTriangleIntersect(r Ray, v0, v1, v2 Vec3) float64 {
 	u := tvec.Dot(pvec) * invDet
 
 	if u < 0 || u > 1 {
-		return float64(math.MinInt32)
+		return float32(math.MinInt32)
 	}
 
 	qvec := tvec.Cross(v0v1)
 	v := r.Direction.Dot(qvec) * invDet
 
 	if v < 0 || u+v > 1 {
-		return float64(math.MinInt32)
+		return float32(math.MinInt32)
 	}
 
 	return v0v2.Dot(qvec) * invDet
@@ -87,22 +87,22 @@ func RayTriangleIntersect(r Ray, v0, v1, v2 Vec3) float64 {
 
 func randomVertex() Vec3 {
 	return Vec3{
-		X: rand.Float64()*2.0 - 1.0,
-		Y: rand.Float64()*2.0 - 1.0,
-		Z: rand.Float64()*2.0 - 1.0,
+		X: rand.Float32()*2.0 - 1.0,
+		Y: rand.Float32()*2.0 - 1.0,
+		Z: rand.Float32()*2.0 - 1.0,
 	}
 }
 
 func randomSphere() Vec3 {
-	r1 := rand.Float64()
-	r2 := rand.Float64()
-	lat := math.Acos(2*r1-1) - math.Pi/2
-	lon := 2 * math.Pi * r2
+	r1 := rand.Float32()
+	r2 := rand.Float32()
+	lat := math.Acos(2*float64(r1-1)) - math.Pi/2
+	lon := float64(2 * math.Pi * r2)
 
 	return Vec3{
-		X: math.Cos(lat) * math.Cos(lon),
-		Y: math.Cos(lat) * math.Sin(lon),
-		Z: math.Sin(lat),
+		X: float32(math.Cos(lat) * math.Cos(lon)),
+		Y: float32(math.Cos(lat) * math.Sin(lon)),
+		Z: float32(math.Sin(lat)),
 	}
 }
 
@@ -149,9 +149,9 @@ func main() {
 	total := time.Since(start)
 
 	nTests := N_RAYS * N_TRIANGLES
-	hitPerc := (float64(nHit) / float64(nTests)) * 100
-	missPerc := (float64(nMiss) / float64(nTests)) * 100
-	mtestsPerSecond := float64(nTests) / total.Seconds() / 1000000
+	hitPerc := (float32(nHit) / float32(nTests)) * 100
+	missPerc := (float32(nMiss) / float32(nTests)) * 100
+	mtestsPerSecond := float32(nTests) / float32(total.Seconds()) / 1000000
 
 	fmt.Printf("Total intersection tests:\t %d\n", nTests)
 	fmt.Printf("Hits:\t\t\t\t %d (%.2f)\n", nHit, hitPerc)
