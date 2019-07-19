@@ -36,6 +36,9 @@ PyPy version:
   Python 2.7.13 (fa3249d55d15b9829e1be69cdf45b5a44cec902d, Mar 27 2017, 13:42:09)
   [PyPy 5.7.0 with GCC 4.2.1 Compatible Apple LLVM 7.3.0 (clang-703.0.31)]
 
+Go version:
+  go version go1.10 linux/amd64
+
 
 Commands used to run the tests:
 
@@ -43,6 +46,7 @@ Commands used to run the tests:
   Nim:  nim c -r -d:release perftestN.nim
   Java: javac Ray.java Vec3.java PerfTest.java && java -cp . PerfTest
   Node: node perftest.js
+  Go:   go run perftest.go
 
 
 Results
