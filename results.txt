@@ -327,3 +327,7 @@ Tests   M test/s   Rel.perf.
  10M      9.2        0.18x
 100M     10.5        0.20x
 
+
+Appendix
+========
+[2019-08-01] The Go implementation contributed by n1try scored 54.8 M tests/s on a 12-core 3.6 Ghz machine, which is 14 % faster than the C++ version (48.24 M tests/s) run on the same machine. 
