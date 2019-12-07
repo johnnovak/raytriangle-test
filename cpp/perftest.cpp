@@ -66,8 +66,7 @@ float rayTriangleIntersect(Ray *r, Vec3 *v0, Vec3 *v1, Vec3 *v2)
 
   float det = dot(v0v1, pvec);
 
-  if (det < 0.000001)
-    return -INFINITY;
+  bool mask1 = (det >= 0.000001);
 
   float invDet = 1.0 / det;
 
@@ -75,17 +74,19 @@ float rayTriangleIntersect(Ray *r, Vec3 *v0, Vec3 *v1, Vec3 *v2)
 
   float u = dot(tvec, pvec) * invDet;
 
-  if (u < 0 || u > 1)
-    return -INFINITY;
+  bool mask2 = (u >= 0) & (u <= 1);
 
   Vec3 qvec = cross(tvec, v0v1);
 
   float v = dot(r->dir, qvec) * invDet;
 
-  if (v < 0 || u + v > 1)
-    return -INFINITY;
+  bool mask3 = (v >= 0) & ((u + v) <= 1);
 
-  return dot(v0v2, qvec) * invDet;
+  bool all_masks = mask1 & mask2 & mask3;
+
+  float result = dot(v0v2, qvec) * invDet;
+
+  return all_masks ? result : -INFINITY;
 }
 
 
